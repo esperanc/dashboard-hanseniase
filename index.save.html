@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Dashboard Hanseníase</title>
+<link rel="stylesheet" type="text/css" href="./inspector.css">
+<body style="margin:0">
+    <div style="height:100px; background:#F7F7F7;">
+        <img src="./logo.jpeg" height="80" style = "margin:10px" />
+    </div>
+<div id="maindiv"></div>    
+<script type="module">
+import define from "./index.js";
+import {Runtime, Library, Inspector} from "./runtime.js";
+
+const runtime = new Runtime();
+const main = runtime.module(define, Inspector.into(document.querySelector("#maindiv")));
+document.querySelectorAll("div.observablehq").forEach ((div,i) => {
+    if (i !== 1) { 
+        div.style.display = "none";
+        console.log ("found")
+    }
+    else console.log ("not found")
+})
+</script>
