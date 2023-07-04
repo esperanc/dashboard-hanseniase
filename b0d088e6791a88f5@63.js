@@ -1,6 +1,6 @@
-import define1 from "./197c2c16ae942e60@368.js";
-import define2 from "./b95f17ec584a2b2b@286.js";
-import define3 from "./95a6dd468792e4c1@158.js";
+import define1 from "./197c2c16ae942e60@370.js";
+import define2 from "./b95f17ec584a2b2b@290.js";
+import define3 from "./95a6dd468792e4c1@159.js";
 
 function _1(md){return(
 md`# Ranking Hanseníase`
