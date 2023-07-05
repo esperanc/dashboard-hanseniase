@@ -1,22 +1,19 @@
-import define1 from "./b95f17ec584a2b2b@286.js";
-import define2 from "./95a6dd468792e4c1@158.js";
-import define3 from "./197c2c16ae942e60@368.js";
+import define1 from "./b95f17ec584a2b2b@290.js";
+import define2 from "./95a6dd468792e4c1@159.js";
+import define3 from "./197c2c16ae942e60@370.js";
 import define4 from "./b0d088e6791a88f5@63.js";
-import define5 from "./97eea99cb34218de@330.js";
-import define6 from "./d835a177217bb78a@322.js";
+import define5 from "./97eea99cb34218de@331.js";
+import define6 from "./d835a177217bb78a@325.js";
 import define7 from "./d4a4b18562e2e145@26.js";
 import define8 from "./a33468b95d0b15b0@808.js";
-import define9 from "./e095826084f87170@303.js";
+import define9 from "./e095826084f87170@312.js";
+import define10 from "./10a3ff86db04e2ff@54.js";
 
-function _1(md){return(
+function _titulo(md){return(
 md`# Dashboard Hanseníase`
 )}
 
-function _estilos(html,toolTipStyles,stylesFilter,stylesRanking,stylesMenuLoc){return(
-html`${toolTipStyles}${stylesFilter}${stylesRanking}${stylesMenuLoc}`
-)}
-
-function _mainWindow(htl){return(
+function _mainWindow(width,htl){return(
 htl.html`<style>
   .containerPrincipal {
     display: grid; 
@@ -126,17 +123,19 @@ htl.html`<style>
   <div class=mapa> MAPA </div>
   <div class=filtrarPor> FILTRAR POR </div>
   <div class=filtrarPorSmall> FILTRAR POR SMALL</div>
+  <div style ="display:none">Reatividade width:${width}</div>
 </div>`
 )}
 
-function _4(md){return(
+function _3(md){return(
 md`<br>
 ## Elementos`
 )}
 
-function _munSelecionados(menuLocalidade,flagColors){return(
+function _munSelecionados(menuLocalidade,TL,flagColors){return(
 menuLocalidade({
   value: ["RIO DE JANEIRO", "SÃO PAULO"],
+  placeholder: TL("Adicione um local"),
   cores: flagColors
 })
 )}
@@ -156,7 +155,7 @@ function _xAxisSelect(aSelect,variaveis,TL)
   return aSelect({
     options: Object.keys(variaveis),
     value: "cn_crianca",
-    width: 120,
+    width: 160,
     format: (d) => TL(variaveis[d].name)
   });
 }
@@ -167,7 +166,7 @@ function _yAxisSelect(aSelect,variaveis,TL)
   return aSelect({
     options: Object.keys(variaveis),
     value: "cn_gif_2",
-    width: 120,
+    width: 160,
     format: (d) => TL(variaveis[d].name)
   });
 }
@@ -239,7 +238,7 @@ function _scatterplotComponent(scatter){return(
 scatter
 )}
 
-function _mapaMunicipio(xAxisSelect,yAxisSelect,colorSelect,escalaCores,makeTooltipFunc,d3tip,alteraMenuLocalidade,$0,panel,indicadoresPorCodigo,posicaoPorCodigo,bubbleMap,posicoesMunicipios,d3)
+function _mapaMunicipio(xAxisSelect,yAxisSelect,colorSelect,escalaCores,makeTooltipFunc,d3tip,alteraMenuLocalidade,$0,panel,mapConfig,indicadoresPorCodigo,posicaoPorCodigo,bubbleMap,posicoesMunicipios,invalidation,$1,d3)
 {
   const vars = [xAxisSelect, yAxisSelect, colorSelect];
   const colorScale = escalaCores;
@@ -253,7 +252,8 @@ function _mapaMunicipio(xAxisSelect,yAxisSelect,colorSelect,escalaCores,makeTool
     width: panel.mapa.w,
     height: panel.mapa.h,
     title: (d) => d.codigo,
-    translation: [300, 0],
+    translation: mapConfig.translation || [300, 0],
+    scale: mapConfig.scale || 1,
     color: (d) => {
       const dado = indicadoresPorCodigo.get(+d.codigo);
       if (dado) return colorScale(dado[colorSelect]);
@@ -283,18 +283,26 @@ function _mapaMunicipio(xAxisSelect,yAxisSelect,colorSelect,escalaCores,makeTool
     }
   };
   const map = bubbleMap(posicoesMunicipios, options);
+  $0.oninput = (d) => {
+    map.setFlags($0.value, options.flags.options);
+  };
+  invalidation.then((d) => {
+  $1.value.scale = map.scale;
+  $1.value.translation = map.translation;
+});
+
   d3.select(map).select("svg").call(tip);
   return map;
 }
 
 
+function _mapConfig(){return(
+{}
+)}
+
 function _16(md){return(
 md`<br>
 ## Implementação`
-)}
-
-function _TL(){return(
-(d) => d
 )}
 
 function _colorVar(variaveis,colorSelect){return(
@@ -342,7 +350,7 @@ function _updateScatterConfig(biglayoutToggle,$0,filteredData,xAxisSelect,yAxisS
 }
 
 
-function _26(menuListener){return(
+function _reatividadeScatterplot(menuListener){return(
 menuListener
 )}
 
@@ -483,18 +491,53 @@ function _populate(panel,htl,$0,TL,$1,$2,legendaEscalaCores,biglayoutToggle,rank
 }
 
 
-function _29(md){return(
+function _28(md){return(
+md`<br>
+## Internacionalização`
+)}
+
+function _tradDb(FileAttachment){return(
+FileAttachment("translations@1.tsv").tsv()
+)}
+
+function _TL(setTLConfig,tradDb,$0,TLoriginal,$1,$2)
+{
+  setTLConfig("orig", "en", tradDb);
+  $0.value = TLoriginal;
+  $1.value = TLoriginal;
+  $2.value = TLoriginal;
+  // mutable TLbarchart = TLoriginal;
+  return TLoriginal;
+}
+
+
+function _31(TLConfig){return(
+TLConfig.db
+  .filter((d) => !d.en)
+  .map((d) => d.orig)
+  .join("\n")
+)}
+
+function _32(md){return(
 md`<br>
 ## Bibliotecas`
 )}
 
+function _estilos(html,toolTipStyles,stylesFilter,stylesRanking,stylesMenuLoc){return(
+html`${toolTipStyles}${stylesFilter}${stylesRanking}${stylesMenuLoc}`
+)}
+
 export default function define(runtime, observer) {
   const main = runtime.module();
-  main.variable(observer()).define(["md"], _1);
-  main.variable(observer("estilos")).define("estilos", ["html","toolTipStyles","stylesFilter","stylesRanking","stylesMenuLoc"], _estilos);
-  main.variable(observer("mainWindow")).define("mainWindow", ["htl"], _mainWindow);
-  main.variable(observer()).define(["md"], _4);
-  main.variable(observer("viewof munSelecionados")).define("viewof munSelecionados", ["menuLocalidade","flagColors"], _munSelecionados);
+  function toString() { return this.url; }
+  const fileAttachments = new Map([
+    ["translations@1.tsv", {url: new URL("./files/d780103ea89e9c1e713a385412a63b082e418cdae92044046e38610c07a7d4fd7bb240fb3b055c341db63722db97deb10fa3547008777e3c70b133099f746241.tsv", import.meta.url), mimeType: "text/tab-separated-values", toString}]
+  ]);
+  main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
+  main.variable(observer("titulo")).define("titulo", ["md"], _titulo);
+  main.variable(observer("mainWindow")).define("mainWindow", ["width","htl"], _mainWindow);
+  main.variable(observer()).define(["md"], _3);
+  main.variable(observer("viewof munSelecionados")).define("viewof munSelecionados", ["menuLocalidade","TL","flagColors"], _munSelecionados);
   main.variable(observer("munSelecionados")).define("munSelecionados", ["Generators", "viewof munSelecionados"], (G, _) => G.input(_));
   main.variable(observer("viewof colorSelect")).define("viewof colorSelect", ["aSelect","variaveis","TL"], _colorSelect);
   main.variable(observer("colorSelect")).define("colorSelect", ["Generators", "viewof colorSelect"], (G, _) => G.input(_));
@@ -507,11 +550,11 @@ export default function define(runtime, observer) {
   main.variable(observer("barchartVis")).define("barchartVis", ["makeBarchartVis","munSelecionados","colorSelect"], _barchartVis);
   main.variable(observer("rankingBarChartContents")).define("rankingBarChartContents", ["htl","visToggle","TL","colorVar","biglayoutToggle","makeIcon","mutable biglayoutToggle","rankingBox","viewof visToggle","barchartVis"], _rankingBarChartContents);
   main.variable(observer("scatterplotComponent")).define("scatterplotComponent", ["scatter"], _scatterplotComponent);
-  main.variable(observer("mapaMunicipio")).define("mapaMunicipio", ["xAxisSelect","yAxisSelect","colorSelect","escalaCores","makeTooltipFunc","d3tip","alteraMenuLocalidade","viewof munSelecionados","panel","indicadoresPorCodigo","posicaoPorCodigo","bubbleMap","posicoesMunicipios","d3"], _mapaMunicipio);
+  main.variable(observer("mapaMunicipio")).define("mapaMunicipio", ["xAxisSelect","yAxisSelect","colorSelect","escalaCores","makeTooltipFunc","d3tip","alteraMenuLocalidade","viewof munSelecionados","panel","mapConfig","indicadoresPorCodigo","posicaoPorCodigo","bubbleMap","posicoesMunicipios","invalidation","mutable mapConfig","d3"], _mapaMunicipio);
+  main.define("initial mapConfig", _mapConfig);
+  main.variable(observer("mutable mapConfig")).define("mutable mapConfig", ["Mutable", "initial mapConfig"], (M, _) => new M(_));
+  main.variable(observer("mapConfig")).define("mapConfig", ["mutable mapConfig"], _ => _.generator);
   main.variable(observer()).define(["md"], _16);
-  main.define("initial TL", _TL);
-  main.variable(observer("mutable TL")).define("mutable TL", ["Mutable", "initial TL"], (M, _) => new M(_));
-  main.variable(observer("TL")).define("TL", ["mutable TL"], _ => _.generator);
   main.variable(observer("colorVar")).define("colorVar", ["variaveis","colorSelect"], _colorVar);
   main.variable(observer("escalaCores")).define("escalaCores", ["d3","variaveis","colorSelect"], _escalaCores);
   main.variable(observer("data")).define("data", ["getIndicadores","ano"], _data);
@@ -524,10 +567,16 @@ export default function define(runtime, observer) {
   main.variable(observer("mutable filtrarPorRolldownToggle")).define("mutable filtrarPorRolldownToggle", ["Mutable", "initial filtrarPorRolldownToggle"], (M, _) => new M(_));
   main.variable(observer("filtrarPorRolldownToggle")).define("filtrarPorRolldownToggle", ["mutable filtrarPorRolldownToggle"], _ => _.generator);
   main.variable(observer("updateScatterConfig")).define("updateScatterConfig", ["biglayoutToggle","mutable scatterConfig","filteredData","xAxisSelect","yAxisSelect","colorSelect","viewof munSelecionados"], _updateScatterConfig);
-  main.variable(observer()).define(["menuListener"], _26);
+  main.variable(observer("reatividadeScatterplot")).define("reatividadeScatterplot", ["menuListener"], _reatividadeScatterplot);
   main.variable(observer("panel")).define("panel", ["mainWindow"], _panel);
   main.variable(observer("populate")).define("populate", ["panel","htl","viewof munSelecionados","TL","viewof ano","viewof colorSelect","legendaEscalaCores","biglayoutToggle","rankingBarChartContents","viewof yAxisSelect","viewof xAxisSelect","makeIcon","mutable biglayoutToggle","scatterplotComponent","filtrarPorRolldownToggle","mutable filtrarPorRolldownToggle","viewof filtersUI","mapaMunicipio","mainWindow"], _populate);
-  main.variable(observer()).define(["md"], _29);
+  main.variable(observer()).define(["md"], _28);
+  main.variable(observer("tradDb")).define("tradDb", ["FileAttachment"], _tradDb);
+  main.define("initial TL", ["setTLConfig","tradDb","mutable TLscatter","TLoriginal","mutable TLfilter","mutable TLranking"], _TL);
+  main.variable(observer("mutable TL")).define("mutable TL", ["Mutable", "initial TL"], (M, _) => new M(_));
+  main.variable(observer("TL")).define("TL", ["mutable TL"], _ => _.generator);
+  main.variable(observer()).define(["TLConfig"], _31);
+  main.variable(observer()).define(["md"], _32);
   const child1 = runtime.module(define1);
   main.import("menuLocalidade", child1);
   main.import("municipios", child1);
@@ -543,21 +592,29 @@ export default function define(runtime, observer) {
   main.import("aSelect", child2);
   main.import("aText", child2);
   main.import("styles", "stylesFilter", child2);
+  main.import("mutable TL", "mutable TLfilter", child2);
+  main.import("TL", "TLfilter", child2);
   const child3 = runtime.module(define3);
   main.import("getIndicadores", child3);
   main.import("variaveis", child3);
   const child4 = runtime.module(define4);
   main.import("makeRankingBox", child4);
+  main.import("mutable TL", "mutable TLranking", child4);
+  main.import("TL", "TLranking", child4);
   main.import("styles", "stylesRanking", child4);
   const child5 = runtime.module(define5);
   main.import("viewof visToggle", child5);
   main.import("visToggle", child5);
   main.import("makeBarchartVis", child5);
+  main.import("mutable TL", "mutable TLbarchart", child5);
+  main.import("TL", "TLbarchart", child5);
   const child6 = runtime.module(define6);
   main.import("scatter", child6);
   main.import("mutable scatterConfig", child6);
   main.import("scatterConfig", child6);
   main.import("menuListener", child6);
+  main.import("mutable TL", "mutable TLscatter", child6);
+  main.import("TL", "TLscatter", child6);
   const child7 = runtime.module(define7);
   main.import("makeIcon", child7);
   const child8 = runtime.module(define8);
@@ -569,5 +626,12 @@ export default function define(runtime, observer) {
   main.import("makeTooltipFunc", child9);
   main.import("d3tip", child9);
   main.import("toolTipStyles", child9);
+  main.import("mutable TL", "mutable TLmap", child9);
+  main.import("TL", "TLmap", child9);
+  const child10 = runtime.module(define10);
+  main.import("translate", "TLoriginal", child10);
+  main.import("setConfig", "setTLConfig", child10);
+  main.import("config", "TLConfig", child10);
+  main.variable(observer("estilos")).define("estilos", ["html","toolTipStyles","stylesFilter","stylesRanking","stylesMenuLoc"], _estilos);
   return main;
 }
