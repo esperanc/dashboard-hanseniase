@@ -3,8 +3,8 @@
 <title>Dashboard Hanseníase</title>
 <link rel="stylesheet" type="text/css" href="./inspector.css">
 <body style="margin:0">
-    <div style="height:100px; background:#F7F7F7;">
-        <img src="./logo.jpeg" height="80" style = "margin:10px" />
+    <div style="height:80px; background:#F7F7F7;">
+        <img src="./logo_mapNTD.png" height="60" style = "margin:10px" />
     </div>
 <div id="maindiv"></div>    
 <script type="module">
@@ -16,8 +16,6 @@ const main = runtime.module(define, Inspector.into(document.querySelector("#main
 document.querySelectorAll("div.observablehq").forEach ((div,i) => {
     if (i !== 1) { 
         div.style.display = "none";
-        console.log ("found")
     }
-    else console.log ("not found")
 })
 </script>

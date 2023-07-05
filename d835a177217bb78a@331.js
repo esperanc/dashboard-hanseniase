@@ -1,4 +1,4 @@
-import define1 from "./197c2c16ae942e60@379.js";
+import define1 from "./197c2c16ae942e60@382.js";
 import define2 from "./b95f17ec584a2b2b@290.js";
 import define3 from "./a33468b95d0b15b0@808.js";
 import define4 from "./d4a4b18562e2e145@26.js";
@@ -56,8 +56,9 @@ function _6(htl,$0,noRange)
 }
 
 
-function _scatter(dblClickInteraction,applyDotAnimation,rectSelect,scatterPlot,scatterData,flagsData,scatterConfig,TL,variaveis,colorScale,getNomeMunicipio,$0,alteraMenuLocalidade,htl,dataRange,makeIcon,noRange)
+function _scatter(makeColorScale,variaveis,scatterConfig,dblClickInteraction,applyDotAnimation,rectSelect,scatterPlot,scatterData,flagsData,TL,getNomeMunicipio,$0,alteraMenuLocalidade,htl,dataRange,makeIcon,noRange)
 {
+  const colorScale = makeColorScale(variaveis[scatterConfig.varcolor]);
   const plot = dblClickInteraction(
     applyDotAnimation(
       rectSelect(
@@ -417,7 +418,7 @@ export default function define(runtime, observer) {
   main.variable(observer("variables")).define("variables", ["Generators", "viewof variables"], (G, _) => G.input(_));
   main.variable(observer("colorLegend")).define("colorLegend", ["Legend","colorScale","TL","variaveis","variables"], _colorLegend);
   main.variable(observer()).define(["htl","mutable dataRange","noRange"], _6);
-  main.variable(observer("scatter")).define("scatter", ["dblClickInteraction","applyDotAnimation","rectSelect","scatterPlot","scatterData","flagsData","scatterConfig","TL","variaveis","colorScale","getNomeMunicipio","mutable dataRange","alteraMenuLocalidade","htl","dataRange","makeIcon","noRange"], _scatter);
+  main.variable(observer("scatter")).define("scatter", ["makeColorScale","variaveis","scatterConfig","dblClickInteraction","applyDotAnimation","rectSelect","scatterPlot","scatterData","flagsData","TL","getNomeMunicipio","mutable dataRange","alteraMenuLocalidade","htl","dataRange","makeIcon","noRange"], _scatter);
   main.define("initial scatterConfig", ["getIndicadores","ano","variables","viewof munSelecionados"], _scatterConfig);
   main.variable(observer("mutable scatterConfig")).define("mutable scatterConfig", ["Mutable", "initial scatterConfig"], (M, _) => new M(_));
   main.variable(observer("scatterConfig")).define("scatterConfig", ["mutable scatterConfig"], _ => _.generator);

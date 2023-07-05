@@ -1,6 +1,6 @@
-import define1 from "./197c2c16ae942e60@370.js";
+import define1 from "./197c2c16ae942e60@382.js";
 import define2 from "./b02783c63cc0070b@251.js";
-import define3 from "./d835a177217bb78a@325.js";
+import define3 from "./d835a177217bb78a@331.js";
 
 function _1(md){return(
 md`# Bar Chart Hanseníase`
