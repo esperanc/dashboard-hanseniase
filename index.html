@@ -29,6 +29,7 @@
         grid-column-end: 2;
         grid-row-start: 2;
         grid-row-end: 3;
+        margin-left:10px;
     }
     div.footerLeft {
         display: flex;
@@ -48,23 +49,26 @@
         grid-row-end: 4;
         padding:0;
     }
+    div.footerLeft a {
+        margin:10px;
+        display:flex;
+    }
 </style>
-<body>
 <div class="footer">
     <div class="footerTitle">
         REALIZAÇÃO
     </div>
     <div class="footerLeft">
-        <img src="ufrj.png" />
-        <img src="labvis.png" />
-        <img src="fiocruz.png" />
+        <a href="mailto:esperanc@cos.ufrj.br"><img src="ufrj.png"  /></a>
+        <a href="https://labvis.eba.ufrj.br/"><img src="labvis.png" /></a>
+        <a href="mailto:ximenill@ioc.fiocruz.br"><img src="fiocruz.png" /></a>
     </div>
     <div class="footerRight">
             <img src="mapntd.png" />
             <div>&nbsp;</div>
             <a style="color:white;" href="mailto:ampliasaude@gmail.com">ampliasaude@gmail.com</a>
     </div>
-</div>   
+</div>
 <script type="module">
 import define from "./index.js";
 import {Runtime, Library, Inspector} from "./runtime.js";
