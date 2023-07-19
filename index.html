@@ -6,7 +6,65 @@
     <div style="height:80px; background:#F7F7F7;">
         <img src="./logo_mapNTD.png" height="60" style = "margin:10px" />
     </div>
-<div id="maindiv"></div>    
+<div id="maindiv"></div> 
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+    .footer {
+      display: grid; 
+      background: #173661;
+      padding:10px;
+      padding-left: 40px;
+      padding-right: 40px;
+      margin:0;
+      column-gap:10px;
+      row-gap:10px;
+      grid-template-columns: 250px auto 250px;
+      grid-template-rows: 40px 10px 90px 40px;
+      color: white;
+      font-family: Roboto Condensed;
+    }
+    div.footerTitle {
+        display: flex;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+    div.footerLeft {
+        display: flex;
+        justify-content: space-between;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 3;
+        grid-row-end: 4;
+        padding:0;
+    }
+    div.footerRight {
+        display: flex;
+        flex-direction: column;
+        grid-column-start: 3;
+        grid-column-end: 4;
+        grid-row-start: 3;
+        grid-row-end: 4;
+        padding:0;
+    }
+</style>
+<body>
+<div class="footer">
+    <div class="footerTitle">
+        REALIZAÇÃO
+    </div>
+    <div class="footerLeft">
+        <img src="ufrj.png" />
+        <img src="labvis.png" />
+        <img src="fiocruz.png" />
+    </div>
+    <div class="footerRight">
+            <img src="mapntd.png" />
+            <div>&nbsp;</div>
+            <a style="color:white;" href="mailto:ampliasaude@gmail.com">ampliasaude@gmail.com</a>
+    </div>
+</div>   
 <script type="module">
 import define from "./index.js";
 import {Runtime, Library, Inspector} from "./runtime.js";
